@@ -1,0 +1,109 @@
+{%extends "Homepage.html"%}
+{%block head%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+{%endblock%}
+{%block body%}
+<div class="container">
+<h1 style="text-align: center;">Results for file: {{fasta_info.filename}}</h1>
+<h3 style="text-align: center;"> The number of sequences in the file is: {{fasta_info.seq_number}} </h3>
+<h3 style="text-align: center;"> Average lengths of the sequences in the file: {{fasta_info.average_length}}nt (min: {{fasta_info.min_length}}nt max:{{fasta_info.max_length}}nt)</h3>
+<h3 style="text-align: center;"> Average masking per sequence: {{fasta_info.average_masked}}%</h3>
+<h3 style="text-align: center;"> Average GC% per sequence: {{fasta_info.average_GC}}%</h3>
+<h3 style="text-align: center;"> Average number of gap chars per sequence: {{fasta_info.average_gaps}}%</h3>
+</div>
+
+
+<div class="container" style="margin-bottom: 50px;">
+<canvas id="GCChart" style="aspect-ratio: 1"></canvas>
+<script>
+var ctx = document.getElementById('GCChart').getContext('2d');
+var GCChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{%for item in intervals%} "{{item}}",{%endfor%}],
+        datasets: [{
+            label: 'GC% distribution',
+            data: {{test_buckets}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+</div>
+
+<div class="container" style="margin-bottom: 50px;">
+<canvas id="RMChart" style="aspect-ratio: 1"></canvas>
+<script>
+var rtx = document.getElementById('RMChart').getContext('2d');
+var RMChart = new Chart(rtx, {
+    type: 'bar',
+    data: {
+        labels: [{%for interval in intervals2%} "{{interval}}",{%endfor%}],
+        datasets: [{
+            label: 'RM% distribution',
+            data: {{test_buckets_2}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+</div>
+
+{%endblock%}

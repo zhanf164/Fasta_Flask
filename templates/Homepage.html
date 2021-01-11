@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  {%block head%}
+  <meta charset="utf-8">
+
+  <title>Fasta Stats Home</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+{%endblock%}
+</head>
+<body>
+    {%block Jumbotron%}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/Fasta_Home">Return to File Upload</a>
+    </nav>
+      <div class="jumbotron" >
+        <div class="container">
+            <h1 style="text-align: center;" class="display-4">Welcome to <strong>Fasta Stats</strong>.</h1>
+            <p style="text-align: center;" class="lead">A simple website to give you information about your fasta files!</p>
+            </div>
+        </div>
+    {% endblock %}
+    {% block body %}
+    <div class="container">
+      <form class="form" method="POST" enctype="multipart/form-data"> 
+      <h4 style="text-align: center; margin-bottom: 25px;">Please direct me to your fasta file below</h4>
+      <h5 style="text-align: center; margin-bottom: 75px;">Currently accepting .fasta, .fas, .fa, and .fna file extensions</h5>
+      <input type="file" name="fasta" style="margin-left: 370px;"  accept=".fasta,.fas,.fa,.fna" multiple>
+      <input type='submit' value='Submit'>
+      </div>
+      
+    </div>
+    {% endblock %}
+    <div class="footer fixed-bottom" style="text-align: center;" ><strong>Currently in testing mode</strong></div>
+</body>
+</html>

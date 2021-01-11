@@ -1,0 +1,13 @@
+{%extends "Homepage.html"%}
+{%block body%}
+<div class="container">
+    <form class="form" method="POST" enctype="multipart/form-data"> 
+    <h4 style="text-align: center; margin-bottom: 25px;">Please direct me to your fasta file below</h4>
+    <h5 style="text-align: center; margin-bottom: 75px;">Currently accepting .fasta, .fas, .fa, and .fna file extensions</h5>
+    <input type="file" name="fasta" style="margin-left: 370px;"  accept=".fasta,.fas,.fa,.fna" multiple>
+    <input type='submit' value='Submit'>
+    <p style="color: red; margin-left: 130px; margin-top: 50px;"> Fasta file is in an unsupported format. Please make sure all headers start with '>' and all lines begin with valid IUPAC characters</p>
+    </div>
+    
+  </div>
+{%endblock%}
